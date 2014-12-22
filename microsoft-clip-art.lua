@@ -74,7 +74,11 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   end
 
   if item_type == "clip-art" then
-    if (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200 and yes1 == false and yes == false) then
+    if (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode == 200 and (yes1 and yes2 and yes3 and yes) == false) then
+      yes1 = true
+      yes2 = true
+      yes3 = true
+    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200 and yes1 == false and yes == false) then
       local mcurl = "http://office.microsoft.com/en-us/images/MC"..item_value..".aspx"
       yes1 = true
       check(mcurl)
