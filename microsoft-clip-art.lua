@@ -97,7 +97,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       if string.match(url, "http[s]?://[^/]+/[^/]+/images/.+") then
         local newurl1 = string.match(url, "(http[s]?://[^/]+/)[^/]+/images/.+")
         local newurl2 = string.match(url, "http[s]?://[^/]+/[^/]+/(images/.+)")
-        local newurl = newurl..newurl2
+        local newurl = newurl1..newurl2
         check(newurl)
       end
       
