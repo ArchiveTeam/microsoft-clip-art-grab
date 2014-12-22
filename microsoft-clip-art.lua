@@ -94,9 +94,11 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         check(newurl)
       end
       
-      for newurl in string.gmatch(url, "(http[s]://[^/]+/)[^/]+/images/.+") for newurl2 in string.gmatch(url, "http[s]://[^/]+/[^/]+/(images/.+)") do
-        local url = newurl..newurl2
-        check(url)
+      if string.match(url, "http[s]://[^/]+/[^/]+/images/.+") then
+        local newurl1 = string.match(url, "(http[s]://[^/]+/)[^/]+/images/.+")
+        local newurl2 = string.match(url, "http[s]://[^/]+/[^/]+/(images/.+)")
+        local newurl = newurl..newurl2
+        check(newurl)
       end
       
       if string.match(url, "/images/M[PC][0-9]+%.") then
