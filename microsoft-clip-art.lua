@@ -70,13 +70,13 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
 
   if item_type == "clip-art" then
     if (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200) then
-      local mcurl = string.gsub(url, "/MP", "/MC")
+      local mcurl = "http://office.microsoft.com/en-us/images/MC"..item_value..".aspx"
       check(mcurl)
     elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MC[0-9]+%.aspx") and last_http_statcode ~= 200) then
-      local mmurl = string.gsub(url, "/MC", "/MM")
+      local mmurl = "http://office.microsoft.com/en-us/images/MM"..item_value..".aspx"
       check(mmurl)
     elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MM[0-9]+%.aspx") and last_http_statcode ~= 200) then
-      local msurl = string.gsub(url, "/MM", "/MS")
+      local msurl = "http://office.microsoft.com/en-us/images/MS"..item_value..".aspx"
       check(msurl)
     else
       --check all languages
