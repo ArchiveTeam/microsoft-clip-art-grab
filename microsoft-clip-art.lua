@@ -69,13 +69,13 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   end
 
   if item_type == "clip-art" then
-    if (string.match(url, "http[s]://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200) then
+    if (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200) then
       local mcurl = string.gsub(url, "/MP", "/MC")
       check(mcurl)
-    elseif (string.match(url, "http[s]://[^/]+/[^/]+/images/MC[0-9]+%.aspx") and last_http_statcode ~= 200) then
+    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MC[0-9]+%.aspx") and last_http_statcode ~= 200) then
       local mmurl = string.gsub(url, "/MC", "/MM")
       check(mmurl)
-    elseif (string.match(url, "http[s]://[^/]+/[^/]+/images/MM[0-9]+%.aspx") and last_http_statcode ~= 200) then
+    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MM[0-9]+%.aspx") and last_http_statcode ~= 200) then
       local msurl = string.gsub(url, "/MM", "/MS")
       check(msurl)
     else
@@ -94,9 +94,9 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         check(newurl)
       end
       
-      if string.match(url, "http[s]://[^/]+/[^/]+/images/.+") then
-        local newurl1 = string.match(url, "(http[s]://[^/]+/)[^/]+/images/.+")
-        local newurl2 = string.match(url, "http[s]://[^/]+/[^/]+/(images/.+)")
+      if string.match(url, "http[s]?://[^/]+/[^/]+/images/.+") then
+        local newurl1 = string.match(url, "(http[s]?://[^/]+/)[^/]+/images/.+")
+        local newurl2 = string.match(url, "http[s]?://[^/]+/[^/]+/(images/.+)")
         local newurl = newurl..newurl2
         check(newurl)
       end
