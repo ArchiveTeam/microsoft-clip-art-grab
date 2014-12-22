@@ -197,7 +197,11 @@ class WgetArgs(object):
         assert item_type in ('clip-art', 'keyword', 'category')
         
         if item_type == 'clip-art':
-			
+            wget_args.append('http://office.microsoft.com/en-us/images/MP{0}.aspx'.format(item_value))
+        elif item_type == 'keyword':
+            wget_args.append('http://office.microsoft.com/en-us/images/results.aspx?qu={0}'.format(item_value))
+        elif item_type == 'category':
+            wget_args.append('http://office.microsoft.com/en-us/images/CM{0}.aspx'.format(item_value))
         else:
             raise Exception('Unknown item')
         
