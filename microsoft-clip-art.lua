@@ -44,7 +44,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     return false
   end
   
-  if item_type == "clip-art" then
+  if item_type == "clip-art" and (downloaded[url] ~= true and addedtolist[url] ~= true) then
     if string.match(url, item_value) then
       return verdict
     elseif html == 0 then
@@ -94,7 +94,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         check(newurl)
       end
       
-      for newurl,newurl2 in string.gmatch(url, "(http[s]://[^/]+/)[^/]+/(images/.+)") do
+      for newurl in string.gmatch(url, "(http[s]://[^/]+/)[^/]+/images/.+") for newurl2 in string.gmatch(url, "http[s]://[^/]+/[^/]+/(images/.+)") do
         local url = newurl..newurl2
         check(url)
       end
