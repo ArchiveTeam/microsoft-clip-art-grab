@@ -58,15 +58,16 @@ end
 
 
 wget.callbacks.get_urls = function(file, url, is_css, iri)
+  local urls = {}
+  local html = nil
+  
   local function check(url)
     if downloaded[url] ~= true and addedtolist[url] ~= true then
       table.insert(urls, { url=url })
       addedtolist[url] = true
     end
   end
-  
-  local urls = {}
-  local html = nil
+
   if item_type == "clip-art" then
     if (string.match(url, "/MP[0-9]+%.") and last_http_statcode ~= 200) then
       local mcurl = string.gsub(url, "/MP", "/MC")
@@ -88,7 +89,15 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           check(newurl)
         end
       end
-        
+      
+      for newurl in string.gmatch(url, "(http[s]?://[^/]+/[^/]+/images/M[PCMS][0-9]+)%.aspx") do
+        check(newurl)
+      end
+      
+      for newurl,newurl2 in string.gmatch(url, "(http[s]://[^/]+/)[^/]+/(images/.+)") do
+        local url = newurl..newurl2
+        check(url)
+      end
       
       if string.match(url, "/images/M[PC][0-9]+%.") then
         local newmhurl = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".jpg"
