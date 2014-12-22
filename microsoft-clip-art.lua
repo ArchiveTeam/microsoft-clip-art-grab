@@ -7,7 +7,9 @@ local tries = 0
 local item_type = os.getenv('item_type')
 local item_value = os.getenv('item_value')
 
-local yes = false
+local yes1 = false
+local yes2 = false
+local yes3 = false
 
 local downloaded = {}
 local addedtolist = {}
@@ -71,19 +73,19 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   end
 
   if item_type == "clip-art" then
-    if (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200 and yes == false) then
+    if (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200 and yes1 == false) then
       local mcurl = "http://office.microsoft.com/en-us/images/MC"..item_value..".aspx"
-      yes = true
+      yes1 = true
       check(mcurl)
-    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MC[0-9]+%.aspx") and last_http_statcode ~= 200 and yes == false) then
+    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MC[0-9]+%.aspx") and last_http_statcode ~= 200 and yes2 == false) then
       local mmurl = "http://office.microsoft.com/en-us/images/MM"..item_value..".aspx"
-      yes = true
+      yes2 = true
       check(mmurl)
-    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MM[0-9]+%.aspx") and last_http_statcode ~= 200 and yes == false) then
+    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MM[0-9]+%.aspx") and last_http_statcode ~= 200 and yes3 == false) then
       local msurl = "http://office.microsoft.com/en-us/images/MS"..item_value..".aspx"
-      yes = true
+      yes3 = true
       check(msurl)
-    elseif yes == true then
+    elseif yes1 == true or yes2 == true or yes3 == true then
       --check all languages
       if string.match(url, "http[s]?://[^/]+/en%-us/[^/]+/") or string.match(url, "http[s]?://[^/]+/en%-US/[^/]+/") then
         local languages = {"es-ar", "pt-br", "en-ca", "fr-ca", "es-hn", "es-mx", "en-us", "ms-my", "en-au", "en-in", "id-id", "en-nz", "fil-ph", "en-sg", "uz-latn-uz", "vi-vn", "kk-kz", "ru-ru", "hi-in", "th-th", "ko-kr", "zh-cn", "zh-tw", "ja-jp", "zh-hk", "az-latn-az", "nl-be", "fr-be", "cs-cz", "da-dk", "de-de", "et-ee", "es-es", "ca-es", "fr-fr", "hr-hr", "en-ie", "it-it", "lv-lv", "lt-lt", "hu-hu", "nl-nl", "nb-no", "de-at", "pl-pl", "pt-pt", "sr-latn-cs", "ro-ro", "de-ch", "sq-al", "sl-si", "sk-sk", "fr-ch", "fi-fi", "sv-se", "tr-tr", "en-gb", "el-gr", "be-by", "bg-bg", "mk-mk", "ru-ru", "uk-ua", "en-za", "tr-tr", "he-il", "ar-sa", "en-001", "fr-001"}
