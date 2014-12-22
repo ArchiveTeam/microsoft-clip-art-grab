@@ -71,15 +71,15 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   end
 
   if item_type == "clip-art" then
-    if (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200 and yes = false) then
+    if (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200 and yes == false) then
       local mcurl = "http://office.microsoft.com/en-us/images/MC"..item_value..".aspx"
       yes = true
       check(mcurl)
-    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MC[0-9]+%.aspx") and last_http_statcode ~= 200 and yes = false) then
+    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MC[0-9]+%.aspx") and last_http_statcode ~= 200 and yes == false) then
       local mmurl = "http://office.microsoft.com/en-us/images/MM"..item_value..".aspx"
       yes = true
       check(mmurl)
-    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MM[0-9]+%.aspx") and last_http_statcode ~= 200 and yes = false) then
+    elseif (string.match(url, "http[s]?://[^/]+/[^/]+/images/MM[0-9]+%.aspx") and last_http_statcode ~= 200 and yes == false) then
       local msurl = "http://office.microsoft.com/en-us/images/MS"..item_value..".aspx"
       yes = true
       check(msurl)
