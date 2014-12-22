@@ -236,13 +236,10 @@ pipeline = Pipeline(
     WgetDownload(
         WgetArgs(),
         max_tries=2,
-        accept_on_exit_code=[0, 4, 8],
+        accept_on_exit_code=[0, 8],
         env={
             "item_dir": ItemValue("item_dir"),
             "item_value": ItemValue("item_value"),
-            "item_url1": ItemValue("item_url1"),
-            "item_url2": ItemValue("item_url2"),
-            "item_url3": ItemValue("item_url3"),
             "item_type": ItemValue("item_type"),
         }
     ),
