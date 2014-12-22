@@ -80,7 +80,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       check(msurl)
     else
       --check all languages
-      if string.match(url, "http[s]?://[^/]+/[^/]+/images/") then
+      if string.match(url, "http[s]?://[^/]+/en-us/[^/]+/") or string.match(url, "http[s]?://[^/]+/en-US/[^/]+/") then
         local languages = {"es-ar", "pt-br", "en-ca", "fr-ca", "es-hn", "es-mx", "en-us", "ms-my", "en-au", "en-in", "id-id", "en-nz", "fil-ph", "en-sg", "uz-latn-uz", "vi-vn", "kk-kz", "ru-ru", "hi-in", "th-th", "ko-kr", "zh-cn", "zh-tw", "ja-jp", "zh-hk", "az-latn-az", "nl-be", "fr-be", "cs-cz", "da-dk", "de-de", "et-ee", "es-es", "ca-es", "fr-fr", "hr-hr", "en-ie", "it-it", "lv-lv", "lt-lt", "hu-hu", "nl-nl", "nb-no", "de-at", "pl-pl", "pt-pt", "sr-latn-cs", "ro-ro", "de-ch", "sq-al", "sl-si", "sk-sk", "fr-ch", "fi-fi", "sv-se", "tr-tr", "en-gb", "el-gr", "be-by", "bg-bg", "mk-mk", "ru-ru", "uk-ua", "en-za", "tr-tr", "he-il", "ar-sa", "en-001", "fr-001"}
         local urlstart = string.match(url, "(http[s]?://[^/]+/)")
         local urlend = string.match(url, "http[s]?://[^/]+/[^/]+(/images/.+)")
