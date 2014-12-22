@@ -44,6 +44,16 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     return false
   end
   
+  if item_type == "clip-art" then
+    if string.match(url, item_value) then
+      return verdict
+    elseif html == 0 then
+      return verdict
+    else
+      return false
+    end
+  end
+  
 end
 
 
