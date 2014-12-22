@@ -69,13 +69,13 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   end
 
   if item_type == "clip-art" then
-    if (string.match(url, "/MP[0-9]+%.") and last_http_statcode ~= 200) then
+    if (string.match(url, "http[s]://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode ~= 200) then
       local mcurl = string.gsub(url, "/MP", "/MC")
       check(mcurl)
-    elseif (string.match(url, "/MC[0-9]+%.") and last_http_statcode ~= 200) then
+    elseif (string.match(url, "http[s]://[^/]+/[^/]+/images/MC[0-9]+%.aspx") and last_http_statcode ~= 200) then
       local mmurl = string.gsub(url, "/MC", "/MM")
       check(mmurl)
-    elseif (string.match(url, "/MM[0-9]+%.") and last_http_statcode ~= 200) then
+    elseif (string.match(url, "http[s]://[^/]+/[^/]+/images/MM[0-9]+%.aspx") and last_http_statcode ~= 200) then
       local msurl = string.gsub(url, "/MM", "/MS")
       check(msurl)
     else
@@ -152,6 +152,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   -- NEW for 2014: Slightly more verbose messages because people keep
   -- complaining that it's not moving or not working
   local status_code = http_stat["statcode"]
+  last_http_statcode = status_code
   
   url_count = url_count + 1
   io.stdout:write(url_count .. "=" .. status_code .. " " .. url["url"] .. ".  \n")
