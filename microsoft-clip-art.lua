@@ -83,7 +83,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       local msurl = "http://office.microsoft.com/en-us/images/MS"..item_value..".aspx"
       yes = true
       check(msurl)
-    elseif yes = true then
+    elseif yes == true then
       --check all languages
       if string.match(url, "http[s]?://[^/]+/en%-us/[^/]+/") or string.match(url, "http[s]?://[^/]+/en%-US/[^/]+/") then
         local languages = {"es-ar", "pt-br", "en-ca", "fr-ca", "es-hn", "es-mx", "en-us", "ms-my", "en-au", "en-in", "id-id", "en-nz", "fil-ph", "en-sg", "uz-latn-uz", "vi-vn", "kk-kz", "ru-ru", "hi-in", "th-th", "ko-kr", "zh-cn", "zh-tw", "ja-jp", "zh-hk", "az-latn-az", "nl-be", "fr-be", "cs-cz", "da-dk", "de-de", "et-ee", "es-es", "ca-es", "fr-fr", "hr-hr", "en-ie", "it-it", "lv-lv", "lt-lt", "hu-hu", "nl-nl", "nb-no", "de-at", "pl-pl", "pt-pt", "sr-latn-cs", "ro-ro", "de-ch", "sq-al", "sl-si", "sk-sk", "fr-ch", "fi-fi", "sv-se", "tr-tr", "en-gb", "el-gr", "be-by", "bg-bg", "mk-mk", "ru-ru", "uk-ua", "en-za", "tr-tr", "he-il", "ar-sa", "en-001", "fr-001"}
@@ -107,14 +107,11 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       end
       
       if string.match(url, "/images/M[PC][0-9]+%.") then
-        local newmhurl = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".jpg"
-        check(newmhurl)
-        local newmburl = "http://officeimg.vo.msecnd.net/en-us/images/MB"..item_value..".jpg"
-        check(newmburl)
-        local newmrurl = "http://officeimg.vo.msecnd.net/en-us/images/MR"..item_value..".jpg"
-        check(newmrurl)
-        local newmturl = "http://officeimg.vo.msecnd.net/en-us/images/MT"..item_value..".jpg"
-        check(newmturl)
+        local Ms = {"MH", "MB", "MR", "MT"}
+        for k, v in pairs(Ms) do
+          local newurl = "http://officeimg.vo.msecnd.net/en-us/images/"..v..item_value..".jpg"
+          check(newurl)
+        end
       end
       
       if string.match(url, "/images/MP[0-9]+%.") then
@@ -132,14 +129,11 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         check(newmmurl)
         local newmmurl1 = "http://officeimg.vo.msecnd.net/en-us/images/MM"..item_value..".gif?Download=1"
         check(newmmurl1)
-        local newmhurl = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".gif"
-        check(newmhurl)
-        local newmburl = "http://officeimg.vo.msecnd.net/en-us/images/MB"..item_value..".gif"
-        check(newmburl)
-        local newmrurl = "http://officeimg.vo.msecnd.net/en-us/images/MR"..item_value..".gif"
-        check(newmrurl)
-        local newmturl = "http://officeimg.vo.msecnd.net/en-us/images/MT"..item_value..".gif"
-        check(newmturl)
+        local Ms = {"MH", "MB", "MR", "MT"}
+        for k, v in pairs(Ms) do
+          local newurl = "http://officeimg.vo.msecnd.net/en-us/images/"..v..item_value..".gif"
+          check(newurl)
+        end
       elseif string.match(url, "/images/MS[0-9]+%.") then
         local newmsurl = "http://officeimg.vo.msecnd.net/en-us/images/MS"..item_value..".wav"
         check(newmsurl)
