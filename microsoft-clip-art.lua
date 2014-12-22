@@ -48,8 +48,80 @@ end
 
 
 wget.callbacks.get_urls = function(file, url, is_css, iri)
+  local function check(url)
+    if downloaded[url] ~= true and addedtolist[url] ~= true then
+      table.insert(urls, { url=url })
+      addedtolist[url] = true
+    end
+  end
+  
   local urls = {}
   local html = nil
+  if item_type == "clip-art" then
+    if (string.match(url, "/MP[0-9]+%.") and last_http_statcode ~= 200) then
+      local mcurl = string.gsub(url, "/MP", "/MC")
+      check(mcurl)
+    elseif (string.match(url, "/MC[0-9]+%.") and last_http_statcode ~= 200) then
+      local mmurl = string.gsub(url, "/MC", "/MM")
+      check(mmurl)
+    elseif (string.match(url, "/MM[0-9]+%.") and last_http_statcode ~= 200) then
+      local msurl = string.gsub(url, "/MM", "/MS")
+      check(msurl)
+    else
+      --check all languages
+      if string.match(url, "http[s]?://[^/]+/[^/]+/images/") then
+        local languages = {"es-ar", "pt-br", "en-ca", "fr-ca", "es-hn", "es-mx", "en-us", "ms-my", "en-au", "en-in", "id-id", "en-nz", "fil-ph", "en-sg", "uz-latn-uz", "vi-vn", "kk-kz", "ru-ru", "hi-in", "th-th", "ko-kr", "zh-cn", "zh-tw", "ja-jp", "zh-hk", "az-latn-az", "nl-be", "fr-be", "cs-cz", "da-dk", "de-de", "et-ee", "es-es", "ca-es", "fr-fr", "hr-hr", "en-ie", "it-it", "lv-lv", "lt-lt", "hu-hu", "nl-nl", "nb-no", "de-at", "pl-pl", "pt-pt", "sr-latn-cs", "ro-ro", "de-ch", "sq-al", "sl-si", "sk-sk", "fr-ch", "fi-fi", "sv-se", "tr-tr", "en-gb", "el-gr", "be-by", "bg-bg", "mk-mk", "ru-ru", "uk-ua", "en-za", "tr-tr", "he-il", "ar-sa", "en-001", "fr-001"}
+        local urlstart = string.match(url, "(http[s]?://[^/]+/)")
+        local urlend = string.match(url, "http[s]?://[^/]+/[^/]+(/images/.+)")
+        for v in next, languages do
+          local newurl = urlstart..v..urlend
+          check(newurl)
+        end
+      end
+        
+      
+      if string.match(url, "/images/M[PC][0-9]+%.") then
+        local newmhurl = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".jpg"
+        check(newmhurl)
+        local newmburl = "http://officeimg.vo.msecnd.net/en-us/images/MB"..item_value..".jpg"
+        check(newmburl)
+        local newmrurl = "http://officeimg.vo.msecnd.net/en-us/images/MR"..item_value..".jpg"
+        check(newmrurl)
+        local newmturl = "http://officeimg.vo.msecnd.net/en-us/images/MT"..item_value..".jpg"
+        check(newmturl)
+      end
+      
+      if string.match(url, "/images/MP[0-9]+%.") then
+        local newmhurl = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".jpg"
+        check(newmhurl)
+        local newmhurl1 = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".jpg?Download=1"
+        check(newmhurl1)
+      elseif string.match(url, "/images/MC[0-9]+%.") then
+        local newmcurl = "http://officeimg.vo.msecnd.net/en-us/images/MC"..item_value..".wmf"
+        check(newmcurl)
+        local newmcurl1 = "http://officeimg.vo.msecnd.net/en-us/images/MC"..item_value..".wmf?Download=1"
+        check(newmcurl1)
+      elseif string.match(url, "/images/MM[0-9]+%.") then
+        local newmmurl = "http://officeimg.vo.msecnd.net/en-us/images/MM"..item_value..".gif"
+        check(newmmurl)
+        local newmmurl1 = "http://officeimg.vo.msecnd.net/en-us/images/MM"..item_value..".gif?Download=1"
+        check(newmmurl1)
+        local newmhurl = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".gif"
+        check(newmhurl)
+        local newmburl = "http://officeimg.vo.msecnd.net/en-us/images/MB"..item_value..".gif"
+        check(newmburl)
+        local newmrurl = "http://officeimg.vo.msecnd.net/en-us/images/MR"..item_value..".gif"
+        check(newmrurl)
+        local newmturl = "http://officeimg.vo.msecnd.net/en-us/images/MT"..item_value..".gif"
+        check(newmturl)
+      elseif string.match(url, "/images/MS[0-9]+%.") then
+        local newmsurl = "http://officeimg.vo.msecnd.net/en-us/images/MS"..item_value..".wav"
+        check(newmsurl)
+        local newmsurl1 = "http://officeimg.vo.msecnd.net/en-us/images/MS"..item_value..".wav?Download=1"
+        check(newmsurl1)
+      end
+    end
+  end
   
   return urls
 end
