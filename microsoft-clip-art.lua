@@ -110,7 +110,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         end
       end
       
-      for newurl in string.gmatch(url, "(http[s]?://[^/]+/[^/]+/images/M[PCMS][0-9]+)%.aspx") and last_http_statcode == 200 do
+      for newurl in string.gmatch(url, "(http[s]?://[^/]+/[^/]+/images/M[PCMS][0-9]+)%.aspx") do
         check(newurl)
       end
       
