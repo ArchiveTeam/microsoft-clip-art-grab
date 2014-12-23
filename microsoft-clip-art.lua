@@ -117,6 +117,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           local newurl3 = string.gsub(newurl1, "M[PCM]"..item_value, v..item_value)
           check(newurl3)
         end
+      end
       
       if string.match(url, "http[s]?://[^/]+/[^/]+/images/.+") then
         local newurl1 = string.match(url, "(http[s]?://[^/]+/)[^/]+/images/.+")
