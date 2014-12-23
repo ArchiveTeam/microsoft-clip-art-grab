@@ -86,7 +86,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       local msurl = "http://office.microsoft.com/en-us/images/MS"..item_value..".aspx"
       yes3 = true
       check(msurl)
-    elseif yes1 == true or yes2 == true or yes3 == true or yes == true or (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode == 200 and (yes1 and yes2 and yes3 and yes) == false) then
+    elseif yes1 == true or yes2 == true or yes3 == true or yes == true or (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode == 200 and (yes1 and yes2 and yes3 and yes) == false) and last_http_statcode == 200 then
       yes = true
       --check all languages
       if string.match(url, "http[s]?://[^/]+/en%-us/[^/]+/") or string.match(url, "http[s]?://[^/]+/en%-US/[^/]+/") then
@@ -126,34 +126,11 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         check(newurl)
       end
       
-      if string.match(url, "/images/M[PC][0-9]+%.") then
-        local Ms = {"MH", "MB", "MR", "MT"}
-        for k, v in pairs(Ms) do
-          local newurl = "http://officeimg.vo.msecnd.net/en-us/images/"..v..item_value..".jpg"
-          check(newurl)
-        end
-      end
-      
-      if string.match(url, "/images/MP[0-9]+%.") then
-        local newmhurl = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".jpg"
-        check(newmhurl)
-        local newmhurl1 = "http://officeimg.vo.msecnd.net/en-us/images/MH"..item_value..".jpg?Download=1"
-        check(newmhurl1)
-      elseif string.match(url, "/images/MC[0-9]+%.") then
+      if string.match(url, "/images/MC[0-9]+%.") then
         local newmcurl = "http://officeimg.vo.msecnd.net/en-us/images/MC"..item_value..".wmf"
         check(newmcurl)
         local newmcurl1 = "http://officeimg.vo.msecnd.net/en-us/images/MC"..item_value..".wmf?Download=1"
         check(newmcurl1)
-      elseif string.match(url, "/images/MM[0-9]+%.") then
-        local newmmurl = "http://officeimg.vo.msecnd.net/en-us/images/MM"..item_value..".gif"
-        check(newmmurl)
-        local newmmurl1 = "http://officeimg.vo.msecnd.net/en-us/images/MM"..item_value..".gif?Download=1"
-        check(newmmurl1)
-        local Ms = {"MH", "MB", "MR", "MT"}
-        for k, v in pairs(Ms) do
-          local newurl = "http://officeimg.vo.msecnd.net/en-us/images/"..v..item_value..".gif"
-          check(newurl)
-        end
       elseif string.match(url, "/images/MS[0-9]+%.") then
         local newmsurl = "http://officeimg.vo.msecnd.net/en-us/images/MS"..item_value..".wav"
         check(newmsurl)
