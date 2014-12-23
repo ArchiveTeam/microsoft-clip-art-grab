@@ -103,6 +103,21 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         check(newurl)
       end
       
+      if string.match(url, "http[s]?://[^/]+/[^/]+/images/[^%.]+%.aspx[^%?]") then
+        html = read_file(file)
+        local ext = string.match(html, '"imgPreview"[^"]+"imgPreview"[^"]+"[^"]*"[^"]+"[^"]*"[^"]+"//[^/]+/[^/]+/[^/]+/[^%.]+(%.[^"]+)"')
+        local urlstart = string.match(url, "(http[s]?://[^/]+/[^/]+/images/[^%.]+)%.aspx[^%?]")
+        local newurl = urlstart..ext.."?Download=1"
+        check(newurl)
+        local newurl2 = urlstart..ext
+        check(newurl2)
+        local Ms = {"MH", "MB", "MR", "MT"}
+        for k, v in pairs(Ms) do
+          local newurl1 = urlstart..ext
+          local newurl3 = string.gsub(newurl1, "M[PCM]"..item_value, v..item_value)
+          check(newurl3)
+        end
+      
       if string.match(url, "http[s]?://[^/]+/[^/]+/images/.+") then
         local newurl1 = string.match(url, "(http[s]?://[^/]+/)[^/]+/images/.+")
         local newurl2 = string.match(url, "http[s]?://[^/]+/[^/]+/(images/.+)")
