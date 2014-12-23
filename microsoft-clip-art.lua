@@ -86,7 +86,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       local msurl = "http://office.microsoft.com/en-us/images/MS"..item_value..".aspx"
       yes3 = true
       check(msurl)
-    elseif yes1 == true or yes2 == true or yes3 == true or (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode == 200 and (yes1 and yes2 and yes3 and yes) == false) then
+    elseif yes1 == true or yes2 == true or yes3 == true or yes == true or (string.match(url, "http[s]?://[^/]+/[^/]+/images/MP[0-9]+%.aspx") and last_http_statcode == 200 and (yes1 and yes2 and yes3 and yes) == false) then
       yes = true
       --check all languages
       if string.match(url, "http[s]?://[^/]+/en%-us/[^/]+/") or string.match(url, "http[s]?://[^/]+/en%-US/[^/]+/") then
